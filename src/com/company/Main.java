@@ -13,10 +13,11 @@ public class Main {
 
     public static void main(String[] args) {
         int userInput;
+        System.out.println("____________________________________________________________________________");
+        System.out.println("Fruit Salad shopping plan");
 
         do {
-            System.out.println("____________________________________________________________________________");
-            System.out.println("Fruit Salad shopping plan");
+
             System.out.println("\nOptions menu: ");
             System.out.println("____________________________________________________________________________");
             System.out.print("1: Add item | 2: Remove item |");
@@ -63,16 +64,15 @@ public class Main {
                     continue;
                 }
             }
-            System.out.println("\nContinue: y | Exit to menu: n");
-            System.out.print("Your choice: ");
-            String input = scanner.next();
+            System.out.print("\nContinue adding: Y/N: ");
+            char input = scanner.next().charAt(0);
 
             switch (input) {
-                case "y":
-                case "Y":
+                case 'y':
+                case 'Y':
                     continue;
-                case "n":
-                case "N":
+                case 'n':
+                case 'N':
                     scanner.nextLine();
                     flag1 = false;
                     break;
@@ -99,11 +99,13 @@ public class Main {
 
 
 }
-    /*System.out.println("____________________________________________________________________________");
-    System.out.println("Fruit Salad shopping plan");
-    System.out.println("\nOptions menu: ");
-    System.out.println("____________________________________________________________________________");
-    System.out.print("1: Add item|  2: Remove item|");
-    System.out.print("  3: Print items|  4: Sort and print|  5: Exit\n");
-    System.out.print("Choose the number: ");*/
+    /*System.out.println("_________________________________________________________");
+      System.out.println("Fruit Salad shopping plan");
+      System.out.println("\nOptions menu: ");
+      System.out.println("\n1: Add item");
+      System.out.println("2: Remove item");
+      System.out.println("3: Print items");
+      System.out.println("4: Sort and print");
+      System.out.println("5: Exit\n");
+      System.out.println("Choose the number: ");*/
 
