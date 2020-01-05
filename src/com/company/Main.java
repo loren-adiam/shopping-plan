@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         int userInput;
-        System.out.println("____________________________________________________________________________");
+        System.out.println("______________________________________________________________________________");
         System.out.println("FRUIT SALAD SHOPPING PLAN");
 
         items.add(new Item("Chicken", (float) 7.45));
@@ -24,9 +24,9 @@ public class Main {
 
         do {
             System.out.println("\nOptions menu: ");
-            System.out.println("____________________________________________________________________________");
+            System.out.println("______________________________________________________________________________");
             System.out.print("1: Add item | 2: Remove item |");
-            System.out.println(" 3: Print items | 4: Sort by price | 5: Exit\n");
+            System.out.println(" 3: Display items | 4: Sort/Display | 5: Exit\n");
             System.out.print("Choose the option number: ");
 
             try {
@@ -103,14 +103,14 @@ public class Main {
         else {
             float sum = 0;
             System.out.println();
-            System.out.println("-----SHOPPING LIST-----\n");
-            for (Item item : items) {
-                String priceFormatted = NumberFormat.getCurrencyInstance().format(item.getPrice());
-                System.out.println(item.getName() + ": " + priceFormatted);
-                sum = sum + (item.getPrice());
+            System.out.println("------SHOPPING LIST IN ADDING ORDER------\n");
+            for (int i = 0; i < items.size(); i++) {
+                String priceFormatted = NumberFormat.getCurrencyInstance().format(items.get(i).getPrice());
+                System.out.println(i + 1 + ". " + items.get(i).getName() + ": " + priceFormatted);
+                sum = sum + (items.get(i).getPrice());
             }
-            System.out.println("\n-----Total: " + NumberFormat.getCurrencyInstance().format(sum) + "-----");
-            // make it like list, frame list, make total,
+            String sumFormatted = NumberFormat.getCurrencyInstance().format(sum);
+            System.out.println("\n-------------TOTAL: " + sumFormatted + "-------------");
         }
     }
 
@@ -123,7 +123,7 @@ public class Main {
             String minItemName = items.get(0).getName();
 
             System.out.println();
-            System.out.println("-----SHOPPING LIST-----\n");
+            System.out.println("----------SORTED SHOPPING LIST----------\n");
 
             ArrayList<Item> sortItems = new ArrayList<>();
 
@@ -133,22 +133,22 @@ public class Main {
 
             Collections.sort(sortItems);
 
-            for (Item item : sortItems) {
-                String priceFormatted = NumberFormat.getCurrencyInstance().format(item.getPrice());
-                System.out.println(item.getName() + ": " + priceFormatted);
-                if (item.getPrice() > maxItemPrice) {
-                    maxItemPrice = item.getPrice();
-                    maxItemName = item.getName();
-                }
-                else if (item.getPrice() < minItemPrice) {
-                    minItemPrice = item.getPrice();
-                    minItemName = item.getName();
+            for (Item sortItem : sortItems) {
+                String priceFormatted = NumberFormat.getCurrencyInstance().format(sortItem.getPrice());
+                System.out.println("- " + priceFormatted + "  " + sortItem.getName());
+                if (sortItem.getPrice() > maxItemPrice) {
+                    maxItemPrice = sortItem.getPrice();
+                    maxItemName = sortItem.getName();
+                } else if (sortItem.getPrice() < minItemPrice) {
+                    minItemPrice = sortItem.getPrice();
+                    minItemName = sortItem.getName();
                 }
             }
             String minFormatted = NumberFormat.getCurrencyInstance().format(minItemPrice);
             String maxFormatted = NumberFormat.getCurrencyInstance().format(maxItemPrice);
-            System.out.println("\nCheapest item --> " + minItemName + ": " + minFormatted);
-            System.out.println("Most expensive item --> " + maxItemName + ": " + maxFormatted);
+            System.out.println("\n- CHEAPEST ITEM -> " + minItemName + ": " + minFormatted);
+            System.out.println("- MOST EXPENSIVE ITEM -> " + maxItemName + ": " + maxFormatted);
+            System.out.println("----------------------------------------");
 
         }
     }
