@@ -2,7 +2,6 @@ package com.company;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -10,14 +9,12 @@ public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Item> items = new ArrayList<>();
 
-
     public static void main(String[] args) {
         int userInput;
         System.out.println("____________________________________________________________________________");
         System.out.println("Fruit Salad shopping plan");
 
         do {
-
             System.out.println("\nOptions menu: ");
             System.out.println("____________________________________________________________________________");
             System.out.print("1: Add item | 2: Remove item |");
@@ -29,7 +26,7 @@ public class Main {
                 if (userInput == 1){
                     addItem();
                 } else if (userInput == 2){
-                    deleteItem();
+                    removeItem();
                 } else if (userInput == 3){
                     printItems();
                 } else if (userInput == 4){
@@ -38,7 +35,6 @@ public class Main {
                     System.out.println("Exiting...");
                     System.exit(0);
                 }
-
             } catch (Exception e){
                 System.out.println("Wrong Entry, try again.");
                 scanner.nextLine();
@@ -46,6 +42,7 @@ public class Main {
 
         } while (true);
     }
+
     public static void addItem(){
         boolean flag1 = true;
         boolean flag2 = true;
@@ -56,8 +53,7 @@ public class Main {
                 System.out.print("Enter item price: ");
                 try {
                     float itemPrice = scanner.nextFloat();
-                    String priceFormatted = NumberFormat.getCurrencyInstance().format(itemPrice);
-                    items.add(new Item(itemName, priceFormatted));
+                    items.add(new Item(itemName, itemPrice));
                 } catch (Exception e) {
                     System.out.println("Wrong Entry, try again.");
                     scanner.nextLine();
@@ -70,6 +66,7 @@ public class Main {
             switch (input) {
                 case 'y':
                 case 'Y':
+                    flag2 = true;
                     continue;
                 case 'n':
                 case 'N':
@@ -83,21 +80,42 @@ public class Main {
         } while (flag1);
     }
 
-    public static void deleteItem(){
+    public static void removeItem(){
+        boolean flag = true;
+        do {
+            System.out.print("\nEnter name of the item you want to delete (");
+            for (int i = 0; i < items.size(); i++) {
+                System.out.print((i < items.size() - 1) ? items.get(i).getName() + ", " : items.get(i).getName());
+            }
+            System.out.print("): ");
+            String input = scanner.next();
 
+            for (int i = 0; i < items.size(); i++) {
+                if (input.equals(items.get(i).getName())) {
+                    System.out.println(items.get(i).getName() + " deleted.");
+                    items.remove(items.get(i));
+                    flag = false;
+                }
+            }
+            if (flag) System.out.println("Wrong entry, try again.");
+        } while (flag);
     }
 
     public static void printItems(){
+        float sum = 0;
         System.out.println();
-        System.out.println(Arrays.toString(new ArrayList[]{items}));
+        for (Item item : items) {
+            String priceFormatted = NumberFormat.getCurrencyInstance().format(item.getPrice());
+            System.out.println(item.getName() + ": " + priceFormatted);
+            sum = sum + (item.getPrice());
+        }
+        System.out.println("\n***** Total: " + NumberFormat.getCurrencyInstance().format(sum) + " *****");
         // make it like list, frame list, make total,
     }
 
     public static void sortItems(){
 
     }
-
-
 }
     /*System.out.println("_________________________________________________________");
       System.out.println("Fruit Salad shopping plan");
