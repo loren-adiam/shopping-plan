@@ -2,10 +2,10 @@ package com.company;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
-    public static String itemName;
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Item> items = new ArrayList<>();
 
@@ -13,6 +13,14 @@ public class Main {
         int userInput;
         System.out.println("____________________________________________________________________________");
         System.out.println("FRUIT SALAD SHOPPING PLAN");
+
+        items.add(new Item("Chicken", (float) 7.45));
+        items.add(new Item("Meat", 11));
+        items.add(new Item("Bread", 2));
+        items.add(new Item("Cola", (float) 2.53));
+        items.add(new Item("Eggs", 3));
+        items.add(new Item("Juice", (float) 5.5));
+        items.add(new Item("Ketchup", 1));
 
         do {
             System.out.println("\nOptions menu: ");
@@ -45,8 +53,8 @@ public class Main {
     public static void addItem(){
         do {
             System.out.print("\nEnter item name or \"e\" to exit: ");
-            itemName = scanner.next();
-            if (itemName.equals("e")) break;
+            String itemName = scanner.next();
+            if (itemName.equals("e") || itemName.equals("E")) break;
             else {
                 System.out.print("Enter item price: ");
                 try {
@@ -65,23 +73,27 @@ public class Main {
         else {
             boolean flag = true;
             do {
-                System.out.print("\nEnter name of the item you want to delete (");
+                System.out.print("\nCurrent list: (");
                 for (int i = 0; i < items.size(); i++) {
                     System.out.print((i < items.size() - 1) ? items.get(i).getName() + ", " : items.get(i).getName());
                 }
-                System.out.print("): ");
+                System.out.println(")");
+                System.out.print("Enter item name to remove it or \"e\" to exit: ");
                 String input = scanner.next();
 
-                for (int i = 0; i < items.size(); i++) {
-                    String name = items.get(i).getName();
-                    String name2 = name.toLowerCase();
-                    if (input.equals(name) || input.equals(name2)) {
-                        System.out.println(items.get(i).getName() + " deleted.");
-                        items.remove(items.get(i));
-                        flag = false;
+                if (input.equals("e") || input.equals("E")) flag = false;
+                else {
+                    for (int i = 0; i < items.size(); i++) {
+                        String name = items.get(i).getName();
+                        String name2 = name.toLowerCase();
+                        if (input.equals(name) || input.equals(name2)) {
+                            System.out.println(items.get(i).getName() + " deleted from the list.");
+                            items.remove(items.get(i));
+                            flag = false;
+                        }
                     }
+                    if (flag) System.out.println("Wrong entry, try again.");
                 }
-                if (flag) System.out.println("Wrong entry, try again.");
             } while (flag);
         }
     }
@@ -91,12 +103,13 @@ public class Main {
         else {
             float sum = 0;
             System.out.println();
+            System.out.println("-----SHOPPING LIST-----\n");
             for (Item item : items) {
                 String priceFormatted = NumberFormat.getCurrencyInstance().format(item.getPrice());
                 System.out.println(item.getName() + ": " + priceFormatted);
                 sum = sum + (item.getPrice());
             }
-            System.out.println("\n***** Total: " + NumberFormat.getCurrencyInstance().format(sum) + " *****");
+            System.out.println("\n-----Total: " + NumberFormat.getCurrencyInstance().format(sum) + "-----");
             // make it like list, frame list, make total,
         }
     }
@@ -104,6 +117,38 @@ public class Main {
     public static void sortItems(){
         if (items.isEmpty()) System.out.println("No added items yet.");
         else {
+            float maxItemPrice = items.get(0).getPrice();
+            float minItemPrice = items.get(0).getPrice();
+            String maxItemName = items.get(0).getName();
+            String minItemName = items.get(0).getName();
+
+            System.out.println();
+            System.out.println("-----SHOPPING LIST-----\n");
+
+            ArrayList<Item> sortItems = new ArrayList<>();
+
+            for (Item value : items) {
+                sortItems.add(new Item(value.getName(), value.getPrice()));
+            }
+
+            Collections.sort(sortItems);
+
+            for (Item item : sortItems) {
+                String priceFormatted = NumberFormat.getCurrencyInstance().format(item.getPrice());
+                System.out.println(item.getName() + ": " + priceFormatted);
+                if (item.getPrice() > maxItemPrice) {
+                    maxItemPrice = item.getPrice();
+                    maxItemName = item.getName();
+                }
+                else if (item.getPrice() < minItemPrice) {
+                    minItemPrice = item.getPrice();
+                    minItemName = item.getName();
+                }
+            }
+            String minFormatted = NumberFormat.getCurrencyInstance().format(minItemPrice);
+            String maxFormatted = NumberFormat.getCurrencyInstance().format(maxItemPrice);
+            System.out.println("\nCheapest item --> " + minItemName + ": " + minFormatted);
+            System.out.println("Most expensive item --> " + maxItemName + ": " + maxFormatted);
 
         }
     }
@@ -117,4 +162,3 @@ public class Main {
       System.out.println("4: Sort and print");
       System.out.println("5: Exit\n");
       System.out.println("Choose the number: ");*/
-
