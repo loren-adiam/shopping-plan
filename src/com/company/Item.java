@@ -2,9 +2,13 @@ package com.company;
 
 public class Item {
     private String name;
-    private String price;
+    private float price;
 
-    public Item(String name, String price) {
+    public Item(){
+
+    }
+
+    public Item(String name, float price) {
         this.name = name;
         this.price = price;
     }
@@ -13,7 +17,11 @@ public class Item {
         return name;
     }
 
-    public String getPrice() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public float getPrice() {
         return price;
     }
 

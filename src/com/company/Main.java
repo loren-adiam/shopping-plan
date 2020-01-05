@@ -44,12 +44,11 @@ public class Main {
     }
 
     public static void addItem(){
-        boolean flag1 = true;
-        boolean flag2 = true;
         do {
-            if (flag2) {
-                System.out.print("\nEnter item: ");
-                itemName = scanner.next();
+            System.out.print("\nEnter item name or \"e\" to exit: ");
+            itemName = scanner.next();
+            if (itemName.equals("e")) break;
+            else {
                 System.out.print("Enter item price: ");
                 try {
                     float itemPrice = scanner.nextFloat();
@@ -57,27 +56,9 @@ public class Main {
                 } catch (Exception e) {
                     System.out.println("Wrong Entry, try again.");
                     scanner.nextLine();
-                    continue;
                 }
             }
-            System.out.print("\nContinue adding: Y/N: ");
-            char input = scanner.next().charAt(0);
-
-            switch (input) {
-                case 'y':
-                case 'Y':
-                    flag2 = true;
-                    continue;
-                case 'n':
-                case 'N':
-                    scanner.nextLine();
-                    flag1 = false;
-                    break;
-                default:
-                    System.out.println("Wrong entry, try again.");
-                    flag2 = false;
-            }
-        } while (flag1);
+        } while (true);
     }
 
     public static void removeItem(){
@@ -91,7 +72,9 @@ public class Main {
             String input = scanner.next();
 
             for (int i = 0; i < items.size(); i++) {
-                if (input.equals(items.get(i).getName())) {
+                String name = items.get(i).getName();
+                String name2 = name.toLowerCase();
+                if (input.equals(name) || input.equals(name2)) {
                     System.out.println(items.get(i).getName() + " deleted.");
                     items.remove(items.get(i));
                     flag = false;
