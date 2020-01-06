@@ -10,6 +10,7 @@ public class Main {
     public static ArrayList<Item> items = new ArrayList<>();
 
     // TODO: NEXT LINE FOR ADDING ITEMS, EXPLANATION FOR FUNCTIONS
+    // test github
     public static void main(String[] args) {
         System.out.println("______________________________________________________________________________");
         System.out.println("FRUIT SALAD SHOPPING PLAN");
