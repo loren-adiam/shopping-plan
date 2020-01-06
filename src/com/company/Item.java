@@ -2,13 +2,13 @@ package com.company;
 
 public class Item implements Comparable<Item> {
     private String name;
-    private float price;
+    private double price;
 
     public Item(){
 
     }
 
-    public Item(String name, float price) {
+    public Item(String name, double price) {
         this.name = name;
         this.price = price;
     }
@@ -21,7 +21,7 @@ public class Item implements Comparable<Item> {
         this.name = name;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 

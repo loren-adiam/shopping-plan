@@ -9,28 +9,23 @@ public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Item> items = new ArrayList<>();
 
+    // TODO: NEXT LINE FOR ADDING ITEMS, EXPLANATION FOR FUNCTIONS
     public static void main(String[] args) {
-        int userInput;
         System.out.println("______________________________________________________________________________");
         System.out.println("FRUIT SALAD SHOPPING PLAN");
 
-        items.add(new Item("Chicken", (float) 7.45));
+        items.add(new Item("Chicken",  7.4555));
         items.add(new Item("Meat", 11));
         items.add(new Item("Bread", 2));
-        items.add(new Item("Cola", (float) 2.53));
+        items.add(new Item("Cola",  2.53));
         items.add(new Item("Eggs", 3));
-        items.add(new Item("Juice", (float) 5.5));
+        items.add(new Item("Juice",  5.5));
         items.add(new Item("Ketchup", 1));
 
         do {
-            System.out.println("\nOptions menu: ");
-            System.out.println("______________________________________________________________________________");
-            System.out.print("1: Add item | 2: Remove item |");
-            System.out.println(" 3: Display items | 4: Sort/Display | 5: Exit\n");
-            System.out.print("Choose the option number: ");
-
+            displayOptionsMenu();
             try {
-                userInput = scanner.nextInt();
+                int userInput = scanner.nextInt();
                 if (userInput == 1){
                     addItem();
                 } else if (userInput == 2){
@@ -50,15 +45,23 @@ public class Main {
         } while (true);
     }
 
+    private static void displayOptionsMenu() {
+        System.out.println("\nOptions menu: ");
+        System.out.println("______________________________________________________________________________");
+        System.out.print("1: Add item | 2: Remove item |");
+        System.out.println(" 3: Display items | 4: Sort & Display | 5: Exit\n");
+        System.out.print("Choose the option number: ");
+    }
+
     public static void addItem(){
         do {
-            System.out.print("\nEnter item name or \"e\" to exit: ");
+            System.out.print("\nEnter item name or \"e\" to exit to menu: ");
             String itemName = scanner.next();
             if (itemName.equals("e") || itemName.equals("E")) break;
             else {
                 System.out.print("Enter item price: ");
                 try {
-                    float itemPrice = scanner.nextFloat();
+                    double itemPrice = scanner.nextDouble();
                     items.add(new Item(itemName, itemPrice));
                 } catch (Exception e) {
                     System.out.println("Wrong Entry, try again.");
@@ -78,7 +81,7 @@ public class Main {
                     System.out.print((i < items.size() - 1) ? items.get(i).getName() + ", " : items.get(i).getName());
                 }
                 System.out.println(")");
-                System.out.print("Enter item name to remove it or \"e\" to exit: ");
+                System.out.print("Enter item name to remove it or \"e\" to exit to menu: ");
                 String input = scanner.next();
 
                 if (input.equals("e") || input.equals("E")) flag = false;
@@ -92,7 +95,7 @@ public class Main {
                             flag = false;
                         }
                     }
-                    if (flag) System.out.println("Wrong entry, try again.");
+                    if (flag) System.out.println("There is no item with that name, try again.");
                 }
             } while (flag);
         }
@@ -101,7 +104,7 @@ public class Main {
     public static void printItems(){
         if (items.isEmpty()) System.out.println("No added items yet.");
         else {
-            float sum = 0;
+            double sum = 0;
             System.out.println();
             System.out.println("------SHOPPING LIST IN ADDING ORDER------\n");
             for (int i = 0; i < items.size(); i++) {
@@ -117,13 +120,13 @@ public class Main {
     public static void sortItems(){
         if (items.isEmpty()) System.out.println("No added items yet.");
         else {
-            float maxItemPrice = items.get(0).getPrice();
-            float minItemPrice = items.get(0).getPrice();
+            double maxItemPrice = items.get(0).getPrice();
+            double minItemPrice = items.get(0).getPrice();
             String maxItemName = items.get(0).getName();
             String minItemName = items.get(0).getName();
 
             System.out.println();
-            System.out.println("----------SORTED SHOPPING LIST----------\n");
+            System.out.println("----------SORTED LIST BY PRICE----------\n");
 
             ArrayList<Item> sortItems = new ArrayList<>();
 
@@ -149,16 +152,25 @@ public class Main {
             System.out.println("\n- CHEAPEST ITEM -> " + minItemName + ": " + minFormatted);
             System.out.println("- MOST EXPENSIVE ITEM -> " + maxItemName + ": " + maxFormatted);
             System.out.println("----------------------------------------");
-
         }
     }
+    // TODO decide either to use or remove this function
+    /**
+     * Test currency function
+     * @param number
+     * @return
+     */
+    public static String currencySEK(double number){
+        String str1 = String.valueOf(number);
+        int index = str1.indexOf('.');
+        String str2 = str1.replace('.',',');
+        String answer = "";
+        for (int i = 1; i < index + 3; i++) {
+            if (index == str2.length() - 2)
+                answer = str2 + "0 SEK";
+            else if (index == i)
+                answer = str2.substring(0, i + 3) + " SEK";
+        }
+        return answer;
+    }
 }
-    /*System.out.println("_________________________________________________________");
-      System.out.println("Fruit Salad shopping plan");
-      System.out.println("\nOptions menu: ");
-      System.out.println("\n1: Add item");
-      System.out.println("2: Remove item");
-      System.out.println("3: Print items");
-      System.out.println("4: Sort and print");
-      System.out.println("5: Exit\n");
-      System.out.println("Choose the number: ");*/
