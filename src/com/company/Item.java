@@ -1,5 +1,7 @@
 package com.company;
 
+import static com.company.Main.sortChoice;
+
 public class Item implements Comparable<Item> {
     private String name;
     private double price;
@@ -35,10 +37,12 @@ public class Item implements Comparable<Item> {
     public int compareTo(Item compareItem) {
         int comparePrice = (int)(compareItem).getPrice();
 
-        /* For Ascending order*/
-        return (int)this.price-comparePrice;
+        if (sortChoice)
+            /* For Ascending order*/
+            return (int)this.price-comparePrice;
+        else
+            /* For Descending order */
+            return (int)(comparePrice-this.price);
 
-        /* For Descending order do like this */
-        //return (int)(comparePrice-this.price);
     }
 }

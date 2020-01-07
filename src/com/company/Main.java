@@ -8,13 +8,15 @@ import java.util.Scanner;
 public class Main {
     public static Scanner scanner = new Scanner(System.in);
     public static ArrayList<Item> items = new ArrayList<>();
+    public static boolean sortChoice = true;
 
     // TODO: NEXT LINE FOR ADDING ITEMS, EXPLANATION FOR FUNCTIONS
-    // test github
+
     public static void main(String[] args) {
         System.out.println("______________________________________________________________________________");
         System.out.println("FRUIT SALAD SHOPPING PLAN");
 
+        //placeholder data
         items.add(new Item("Chicken",  7.4555));
         items.add(new Item("Meat", 11));
         items.add(new Item("Bread", 2));
@@ -121,46 +123,54 @@ public class Main {
     public static void sortItems(){
         if (items.isEmpty()) System.out.println("No added items yet.");
         else {
-            double maxItemPrice = items.get(0).getPrice();
-            double minItemPrice = items.get(0).getPrice();
-            String maxItemName = items.get(0).getName();
-            String minItemName = items.get(0).getName();
-
-            System.out.println();
-            System.out.println("----------SORTED LIST BY PRICE----------\n");
-
-            ArrayList<Item> sortItems = new ArrayList<>();
-
-            for (Item value : items) {
-                sortItems.add(new Item(value.getName(), value.getPrice()));
-            }
-
-            Collections.sort(sortItems);
-
-            for (Item sortItem : sortItems) {
-                String priceFormatted = NumberFormat.getCurrencyInstance().format(sortItem.getPrice());
-                System.out.println("- " + priceFormatted + "  " + sortItem.getName());
-                if (sortItem.getPrice() > maxItemPrice) {
-                    maxItemPrice = sortItem.getPrice();
-                    maxItemName = sortItem.getName();
-                } else if (sortItem.getPrice() < minItemPrice) {
-                    minItemPrice = sortItem.getPrice();
-                    minItemName = sortItem.getName();
+            while (true) {
+                System.out.print("Enter 1 for Ascending, 2 for Descending: ");
+                try {
+                    int input = scanner.nextInt();
+                    if (input == 2) sortChoice = false;
+                    else if (input == 1) sortChoice = true;
+                    else continue;
+                } catch (Exception e) {
+                    System.out.println("Try again.");
+                    scanner.nextLine();
+                    continue;
                 }
+                double maxItemPrice = items.get(0).getPrice();
+                double minItemPrice = items.get(0).getPrice();
+                String maxItemName = items.get(0).getName();
+                String minItemName = items.get(0).getName();
+
+                System.out.println();
+                System.out.println("----------SORTED LIST BY PRICE----------\n");
+
+                ArrayList<Item> sortItems = new ArrayList<>();
+
+                for (Item value : items) {
+                    sortItems.add(new Item(value.getName(), value.getPrice()));
+                }
+                Collections.sort(sortItems);
+
+                for (Item sortItem : sortItems) {
+                    String priceFormatted = NumberFormat.getCurrencyInstance().format(sortItem.getPrice());
+                    System.out.println("- " + priceFormatted + "  " + sortItem.getName());
+                    if (sortItem.getPrice() > maxItemPrice) {
+                        maxItemPrice = sortItem.getPrice();
+                        maxItemName = sortItem.getName();
+                    } else if (sortItem.getPrice() < minItemPrice) {
+                        minItemPrice = sortItem.getPrice();
+                        minItemName = sortItem.getName();
+                    }
+                }
+                String minFormatted = NumberFormat.getCurrencyInstance().format(minItemPrice);
+                String maxFormatted = NumberFormat.getCurrencyInstance().format(maxItemPrice);
+                System.out.println("\n- CHEAPEST ITEM -> " + minItemName + ": " + minFormatted);
+                System.out.println("- MOST EXPENSIVE ITEM -> " + maxItemName + ": " + maxFormatted);
+                System.out.println("----------------------------------------");
+                break;
             }
-            String minFormatted = NumberFormat.getCurrencyInstance().format(minItemPrice);
-            String maxFormatted = NumberFormat.getCurrencyInstance().format(maxItemPrice);
-            System.out.println("\n- CHEAPEST ITEM -> " + minItemName + ": " + minFormatted);
-            System.out.println("- MOST EXPENSIVE ITEM -> " + maxItemName + ": " + maxFormatted);
-            System.out.println("----------------------------------------");
         }
     }
-    // TODO decide either to use or remove this function
-    /**
-     * Test currency function
-     * @param number
-     * @return
-     */
+
     public static String currencySEK(double number){
         String str1 = String.valueOf(number);
         int index = str1.indexOf('.');
