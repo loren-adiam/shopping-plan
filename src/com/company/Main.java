@@ -2,7 +2,7 @@ package com.company;
 
 public class Main {
 
-    // TODO: NEXT LINE FOR ADDING ITEMS, EXPLANATION FOR FUNCTIONS
+    // TODO EXPLANATION FOR FUNCTIONS
 
     public static void main(String[] args) {
         shoppingListTittle();
@@ -11,17 +11,24 @@ public class Main {
             displayOptionsMenu();
             try {
                 int userInput = ShoppingList.scanner.nextInt();
-                if (userInput == 1){
-                    ShoppingList.addItem();
-                } else if (userInput == 2){
-                    ShoppingList.removeItem();
-                } else if (userInput == 3){
-                    ShoppingList.printItems();
-                } else if (userInput == 4){
-                    ShoppingList.sortItems();
-                } else if (userInput == 5){
-                    System.out.println("Exiting...");
-                    System.exit(0);
+                ShoppingList.scanner.nextLine();
+                switch (userInput){
+                    case 1:
+                        ShoppingList.addItem();
+                        break;
+                    case 2:
+                        ShoppingList.removeItem();
+                        break;
+                    case 3:
+                        ShoppingList.printItems();
+                        break;
+                    case 4:
+                        ShoppingList.sortItems();
+                        break;
+                    case 5:
+                        System.out.println("Exiting...");
+                        System.exit(0);
+                        break;
                 }
             } catch (Exception e){
                 System.out.println("Wrong Entry, try again.");

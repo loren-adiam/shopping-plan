@@ -16,12 +16,13 @@ public class ShoppingList {
     public static void addItem(){
         do {
             System.out.print("\nEnter item name or \"e\" to exit to menu: ");
-            String itemName = scanner.next();
+            String itemName = scanner.nextLine();
             if (itemName.equals("e") || itemName.equals("E")) break;
             else {
                 System.out.print("Enter item price: ");
                 try {
                     double itemPrice = scanner.nextDouble();
+                    scanner.nextLine();
                     items.add(new Item(itemName, itemPrice));
 
                 } catch (Exception e) {
@@ -44,7 +45,7 @@ public class ShoppingList {
                 }
                 System.out.println(")");
                 System.out.print("Enter item name to remove it or \"e\" to exit to menu: ");
-                String input = scanner.next();
+                String input = scanner.nextLine();
 
                 if (input.equals("e") || input.equals("E")) flag = false;
                 else {
