@@ -1,6 +1,6 @@
 package com.company;
 
-import static com.company.Main.sortChoice;
+import static com.company.ShoppingList.sortChoice;
 
 public class Item implements Comparable<Item> {
     private String name;
